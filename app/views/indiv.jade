@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1= title
+  h2= subtitle
+
+  table
+    tr
+      th= 'gender'
+      th= 'dob'
+      th= 'registrationlocation'
+      th= 'previouslyregisterrednowoffline'
+      th= 'question'
+      th= 'collection'
+      th= 'createdat'
+      th= 'lastmodifiedat'
+      th= 'complete'
+      th= 'currenthistrict'
+      th= 'savedby'
+    each val, index in registrations[0]
+      tr
+        td= val.gender
+        td= val.dob
+        td= val.registrationlocation
+        td= val.previouslyregisterrednowoffline
+        td= val.question
+        td= val.collection
+        td= val.createdat
+        td= val.lastmodifiedat
+        td= val.complete
+        td= val.currentdistrict
+        td= val.savedby
+

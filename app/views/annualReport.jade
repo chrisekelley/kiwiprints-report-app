@@ -1,0 +1,100 @@
+extends layout
+
+block content
+  h1= title
+  h2= subtitle
+
+  p= JSON.stringify(records)
+
+  table
+    tr
+      th= 'countProperty'
+      th= 'currentdistrict'
+      th= 'gender'
+    each val, index in records.refusedsurgeryl
+      tr
+        td= val.countProperty
+        td= val.currentdistrict
+        td= val.gender
+
+  table
+    tr
+      th= 'District Name'
+      th(colspan=2)= '# Refusals (of surgery &/or epilation)'
+      th(colspan=2)= '# People Operated'
+      th(colspan=2)= '# Eyelids Operated'
+      th(colspan=2)= '# People Epilated'
+      th(colspan=2)= '# Eyelids Epilated'
+      th(colspan=2)= '# Eyelids classifed as a failed surgery'
+      th(colspan=2)= '# Eyelids Showing Recurrence'
+    tr
+      th= ''
+      th= 'Male'
+      th= 'Female'
+      th= 'Male'
+      th= 'Female'
+      th= 'Male'
+      th= 'Female'
+      th= 'Male'
+      th= 'Female'
+      th= 'Male'
+      th= 'Female'
+      th= 'Male'
+      th= 'Female'
+      th= 'Male'
+      th= 'Female'
+    tr
+      td= 'DistrictA'
+    tr
+      td= 'DistrictB'
+    tr
+      td= 'DistrictC'
+    tr
+      td= 'DistrictD'
+    tr
+      td= 'Cuamba'
+    tr
+      td= 'Mandimba'
+    tr
+      td= 'Mecanhelas'
+    tr
+      td= 'N´gauma'
+    tr
+      td= 'Sanga'
+    tr
+      td= 'Majune'
+    tr
+      td= 'Lago'
+    tr
+      td= 'Lichinga (rural)'
+    tr
+      td= 'Cidade de Lichinga'
+    tr
+      td= 'Balama'
+    tr
+      td= 'Montepuez'
+    tr
+      td= 'Namuno'
+    tr
+      td= 'Mueda'
+    tr
+      td= 'Nangade'
+    tr
+      td= 'Palma'
+    tr
+      td= 'Macomia'
+    tr
+      td= 'Moç. Da Praia'
+    tr
+      td= 'Muidumbe'
+    tr
+      td= 'Moma'
+    tr
+      td= 'Nacala Velha'
+    tr
+      td= 'Nacala-Porto'
+    tr
+      td= 'Nhamatanda'
+    tr
+      td= 'Ile'
+

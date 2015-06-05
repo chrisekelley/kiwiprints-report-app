@@ -19,7 +19,7 @@ router.get '/indiv', (req, res, next) ->
     res.render 'indiv',
       title: 'Kiwiprints'
       subtitle: 'Individual Registration'
-    registrations: indiv_reg
+      registrations: indiv_reg
 
 #// Each record will now be a instance of Project
 

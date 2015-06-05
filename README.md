@@ -75,7 +75,39 @@ Then subtract the counts from RefusedSurgery.
     AND typeofoperationl != ''
     GROUP BY i.gender, t.currentDistrict;
 
-## Eyelids Epilated
+    SELECT t.lastmodifiedat, t.typeofoperationl, t.typeofoperationr , t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND (typeofoperationl != '' OR typeofoperationr != '')
+    ORDER BY t.lastmodifiedat DESC;
+
+    SELECT COUNT(t.*) as thecount , t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND (typeofoperationl != '' OR typeofoperationr != '')
+    GROUP BY i.gender, t.currentDistrict;
+
+    SELECT SUM(CASE WHEN typeofoperationl IS NOT NULL THEN 1 ELSE 0 END) +
+               SUM(CASE WHEN typeofoperationr IS NOT NULL THEN 1 ELSE 0 END) AS column1_count,
+     t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    GROUP BY i.gender, t.currentDistrict;
+
+## People Epilated
+
+    SELECT providedepilationconsultationl, providedepilationconsultationr, t.currentDistrict, i.gender
+        FROM trichiasis t, indiv_reg i
+        WHERE t.clientid = i._id
+    AND (providedepilationconsultationl != '' OR providedepilationconsultationr != '');
+
+    SELECT
+    COUNT(i.*)AS countProperty,
+    t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND (providedepilationconsultationl != '' OR providedepilationconsultationr != '')
+    GROUP BY i.gender, t.currentDistrict;'
 
     SELECT COUNT(t.providedepilationconsultationl) as providedepilationconsultationl , t.currentDistrict, i.gender
     FROM trichiasis t, indiv_reg i
@@ -89,10 +121,36 @@ Then subtract the counts from RefusedSurgery.
     AND providedepilationconsultationr != ''
     GROUP BY i.gender, t.currentDistrict;
 
+    SELECT
+    SUM(CASE WHEN providedepilationconsultationl IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN providedepilationconsultationr IS NOT NULL THEN 1 ELSE 0 END) AS column1_count,
+    t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND (providedepilationconsultationl != '' OR providedepilationconsultationr != '')
+    GROUP BY i.gender, t.currentDistrict;
+
+## People Epilated
+
     SELECT COUNT(t.providedepilationconsultationl) as providedepilationconsultationl , t.currentDistrict, i.gender
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND providedepilationconsultationl != ''
+    GROUP BY i.gender, t.currentDistrict;
+
+    SELECT COUNT(t.providedepilationconsultationr) as providedepilationconsultationr , t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND providedepilationconsultationr != ''
+    GROUP BY i.gender, t.currentDistrict;
+
+    SELECT
+    SUM(CASE WHEN providedepilationconsultationl IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN providedepilationconsultationr IS NOT NULL THEN 1 ELSE 0 END) AS column1_count,
+    t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND (providedepilationconsultationl != '' OR providedepilationconsultationr != '')
     GROUP BY i.gender, t.currentDistrict;
 
 ## Failed surgeries
@@ -158,6 +216,29 @@ Then subtract the counts from RefusedSurgery.
     COUNT(t.marginfragmantseveredr) as marginfragmantseveredr,
     COUNT(t.globepuncturer) as globepuncturer,
     COUNT(t.complicationsreferralr) as complicationsreferralr,
+    t.currentDistrict, i.gender
+    FROM trichiasis t, indiv_reg i
+    WHERE t.clientid = i._id
+    AND (
+    excessbleedingl != ''
+    OR marginfragmantseveredl != ''
+    OR globepuncturel != ''
+    OR complicationsreferrall != ''
+    OR excessbleedingr != ''
+    OR marginfragmantseveredr != ''
+    OR globepuncturer != ''
+    OR complicationsreferralr != ''
+    )
+    GROUP BY i.gender, t.currentDistrict;
+
+    SELECT
+    SUM(CASE WHEN excessbleedingl IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN globepuncturel IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN complicationsreferrall IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN excessbleedingr IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN marginfragmantseveredr IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN globepuncturer IS NOT NULL THEN 1 ELSE 0 END) +
+    SUM(CASE WHEN complicationsreferralr IS NOT NULL THEN 1 ELSE 0 END) AS countProperty,
     t.currentDistrict, i.gender
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id

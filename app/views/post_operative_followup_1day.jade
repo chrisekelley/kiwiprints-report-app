@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1= title
+  h2= subtitle
+
+  table
+    tr
+      th= '_id'
+      th= 'question'
+      th= 'collection'
+      th= 'createdat'
+      th= 'lastmodifiedat'
+      th= 'servicelocation'
+      th= 'dateofvisit'
+      th= 'timeofvisit'
+      th= 'azithromycinr'
+      th= 'tetracyclineeyeointmentr'
+      th= 'complete'
+      th= 'currentdistrict'
+      th= 'savedby'
+      th= 'clientid'
+      th= 'latitude'
+      th= 'longitude'
+      th= 'gps_timestamp'
+    each val, index in records[0]
+      tr
+        td= val._id
+        td= val.question
+        td= val.collection
+        td= val.createdat
+        td= val.lastmodifiedat
+        td= val.servicelocation
+        td= val.dateofvisit
+        td= val.timeofvisit
+        td= val.azithromycinr
+        td= val.tetracyclineeyeointmentr
+        td= val.complete
+        td= val.currentdistrict
+        td= val.savedby
+        td= val.clientid
+        td= val.latitude
+        td= val.longitude
+        td= val.gps_timestamp
+

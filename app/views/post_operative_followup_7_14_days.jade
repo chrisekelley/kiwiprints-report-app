@@ -1,0 +1,85 @@
+extends layout
+
+block content
+  h1= title
+  h2= subtitle
+
+  table
+    tr
+      th= '_id'
+      th= 'question'
+      th= 'collection'
+      th= 'createdat'
+      th= 'lastmodifiedat'
+      th= 'servicelocation'
+      th= 'dateofvisit'
+      th= 'timeofvisit'
+      th= 'defectsEyelidL'
+      th= 'defectsEyelidR'
+      th= 'granulomaExcisionL'
+      th= 'granulomaExcisionR'
+      th= 'granulomaL'
+      th= 'granulomaR'
+      th= 'infectionL'
+      th= 'infectionR'
+      th= 'numberReturnInDaysMonthsL'
+      th= 'numberReturnInDaysMonthsR'
+      th= 'referredToHospitalL'
+      th= 'referredToHospitalR'
+      th= 'referredToHospitalTextL'
+      th= 'referredToHospitalTextR'
+      th= 'removalOfSuturesL'
+      th= 'removalOfSuturesR'
+      th= 'returnForFollowupL'
+      th= 'returnForFollowupR'
+      th= 'returnInDaysMonthsL'
+      th= 'returnInDaysMonthsR'
+      th= 'subCorrectionL'
+      th= 'subCorrectionR'
+      th= 'complete'
+      th= 'currentdistrict'
+      th= 'savedby'
+      th= 'clientid'
+      th= 'latitude'
+      th= 'longitude'
+      th= 'gps_timestamp'
+    each val, index in records[0]
+      tr
+        td= val._id
+        td= val.question
+        td= val.collection
+        td= val.createdat
+        td= val.lastmodifiedat
+        td= val.servicelocation
+        td= val.dateofvisit
+        td= val.timeofvisit
+        td= val.defectsEyelidL
+        td= val.defectsEyelidR
+        td= val.granulomaExcisionL
+        td= val.granulomaExcisionR
+        td= val.granulomaL
+        td= val.granulomaR
+        td= val.infectionL
+        td= val.infectionR
+        td= val.numberReturnInDaysMonthsL
+        td= val.numberReturnInDaysMonthsR
+        td= val.referredToHospitalL
+        td= val.referredToHospitalR
+        td= val.referredToHospitalTextL
+        td= val.referredToHospitalTextR
+        td= val.removalOfSuturesL
+        td= val.removalOfSuturesR
+        td= val.returnForFollowupL
+        td= val.returnForFollowupR
+        td= val.returnInDaysMonthsL
+        td= val.returnInDaysMonthsR
+        td= val.subCorrectionL
+        td= val.subCorrectionR
+        td= val.complete
+        td= val.currentdistrict
+        td= val.savedby
+        td= val.clientid
+        td= val.latitude
+        td= val.longitude
+        td= val.gps_timestamp
+

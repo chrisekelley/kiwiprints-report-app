@@ -1,5 +1,33 @@
 # Kiwiprints report app
 
+This app provides reports for data imported by [kiwiprints-postgres-import](https://github.com/chrisekelley/kiwiprints-postgres-import)
+
+# Generate app
+
+npm install -g generator-express
+
+Using coffeescript, MVC, and [jade](http://jade-lang.com/reference/)
+
+https://github.com/petecoop/generator-express
+
+# Create models
+
+This app uses [Sequelize](http://docs.sequelizejs.com/en/latest/) node library for ORM.
+
+[sequelize-auto](https://github.com/sequelize/sequelize-auto) to convert table into models, which the ORM uses.
+
+     sequelize-auto -o "./models" -d kiwiprints -h localhost -u postgres -p 5432 -x password -e postgres
+
+# Node postgres client
+
+[node-postgres](https://github.com/brianc/node-postgres)
+
+# Run as daemon
+
+    forever start app.js
+    forever list
+    forever stop 0
+
 # Report SQL
 
 ## View records from indiv_reg:

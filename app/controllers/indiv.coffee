@@ -14,6 +14,7 @@ module.exports = (app) ->
 router.get '/indiv', (req, res, next) ->
   sequelize.query 'SELECT gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection, createdat, lastmodifiedat,complete, currentdistrict,savedby
     from indiv_reg
+    WHERE collection = \'result\'
     ORDER BY lastmodifiedat DESC;', { model: indiv_reg }
   .then (indiv_reg)->
     res.render 'indiv',
@@ -22,4 +23,5 @@ router.get '/indiv', (req, res, next) ->
       registrations: indiv_reg
 
 #// Each record will now be a instance of Project
+
 

@@ -1,9 +1,16 @@
 extends layout
 
-block content
-  h1= title
-  h2= subtitle
+block js
+  script(src='/components/jquery/dist/jquery.min.js')
+  script(src='/components/bootstrap/dist/js/bootstrap.min.js')
+  script(src='/components/datatables/media/js/jquery.dataTables.min.js')
+  script(src='/js/dataTables.fixedHeader.min.js')
 
+  if ENV_DEVELOPMENT
+    script(src='http://localhost:35729/livereload.js')
+  script(src='/js/init.js')
+
+block content
   //p= JSON.stringify(records)
   //p= JSON.stringify(records.DistrictAData)
   //p= JSON.stringify(records.DistrictBData)
@@ -19,32 +26,33 @@ block content
   //      td= val.currentdistrict
   //      td= val.gender
 
-  table
-    tr
-      th= 'District Name'
-      th(colspan=2)= '# Refusals (of surgery &/or epilation)'
-      th(colspan=2,title='Includes refusals.')= '# People Operated'
-      th(colspan=2)= '# Eyelids Operated'
-      th(colspan=2)= '# People Epilated'
-      th(colspan=2)= '# Eyelids Epilated'
-      th(colspan=2)= '# Eyelids classifed as a failed surgery'
-      th(colspan=2)= '# Eyelids Showing Recurrence'
-    tr
-      th= ''
-      th= 'Male'
-      th= 'Female'
-      th= 'Male'
-      th= 'Female'
-      th= 'Male'
-      th= 'Female'
-      th= 'Male'
-      th= 'Female'
-      th= 'Male'
-      th= 'Female'
-      th= 'Male'
-      th= 'Female'
-      th= 'Male'
-      th= 'Female'
+  table(id="summary",class="display", width="100%", cellspacing="0" )
+    thead
+      tr
+        th= 'District Name'
+        th(colspan=2)= '# Refusals (of surgery &/or epilation)'
+        th(colspan=2,title='Includes refusals.')= '# People Operated'
+        th(colspan=2)= '# Eyelids Operated'
+        th(colspan=2)= '# People Epilated'
+        th(colspan=2)= '# Eyelids Epilated'
+        th(colspan=2)= '# Eyelids classifed as a failed surgery'
+        th(colspan=2)= '# Eyelids Showing Recurrence'
+      tr
+        th= ''
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
     //tr
     //  td= 'DistrictA'
     //  if records.DistrictAData.refusedsurgeryl
@@ -57,40 +65,41 @@ block content
     //  if records.DistrictAData.operations
     //    if records.DistrictAData.operations.gender == 'Female'
     //      td=  operations = records.DistrictAData.operations.countproperty
-    each val, index in records.districts
-      - var fixed = val + "Data"
-      tr
-        //td= val + JSON.stringify(records[fixed])
-        td= val
-        if records[fixed]
-          td= records[fixed].refusedsurgery.Male
-          td= records[fixed].refusedsurgery.Female
-          td= records[fixed].operations.Male
-          td= records[fixed].operations.Female
-          td= records[fixed].eyelidsOperated.Male
-          td= records[fixed].eyelidsOperated.Female
-          td= records[fixed].peopleEpilated.Male
-          td= records[fixed].peopleEpilated.Female
-          td= records[fixed].eyelidsEpilated.Male
-          td= records[fixed].eyelidsEpilated.Female
-          td= records[fixed].failedSurgeries.Male
-          td= records[fixed].failedSurgeries.Female
-          td= ''
-          td= ''
-        else
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
-          td= ''
+    tbody
+      each val, index in records.districts
+        - var fixed = val + "Data"
+        tr
+          //td= val + JSON.stringify(records[fixed])
+          td= val
+          if records[fixed]
+            td= records[fixed].refusedsurgery.Male
+            td= records[fixed].refusedsurgery.Female
+            td= records[fixed].operations.Male
+            td= records[fixed].operations.Female
+            td= records[fixed].eyelidsOperated.Male
+            td= records[fixed].eyelidsOperated.Female
+            td= records[fixed].peopleEpilated.Male
+            td= records[fixed].peopleEpilated.Female
+            td= records[fixed].eyelidsEpilated.Male
+            td= records[fixed].eyelidsEpilated.Female
+            td= records[fixed].failedSurgeries.Male
+            td= records[fixed].failedSurgeries.Female
+            td= ''
+            td= ''
+          else
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
 
 

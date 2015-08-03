@@ -15,18 +15,17 @@ districts = ["noDistrictEntered", "DistrictA","DistrictB","DistrictC","DistrictD
 
 annualReportData = {}
 
-assignDistrict = (annualReportData, record, type)->
+assignDistrict = (reportData, record, type)->
   district = record.currentdistrict
   if district == null
     district = "noDistrictEntered"
-  districtData = annualReportData["#{district}Data"]
+  districtData = reportData["#{district}Data"]
   if typeof districtData == 'undefined'
-    annualReportData["#{district}Data"] = {}
+    reportData["#{district}Data"] = {}
   console.log("record: " + type + ":" + district)
-  if typeof annualReportData["#{district}Data"][type] == 'undefined'
-    annualReportData["#{district}Data"][type] = {}
-  annualReportData["#{district}Data"][type][record.gender] = record.countproperty
-#  annualReportData["#{district}Data"]  = "plop"
+  if typeof reportData["#{district}Data"][type] == 'undefined'
+    reportData["#{district}Data"][type] = {}
+  reportData["#{district}Data"][type][record.gender] = record.countproperty
 
 computeReportData = (property)->
   shortProperty = property.replace("Data", "")

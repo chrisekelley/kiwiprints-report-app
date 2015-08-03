@@ -1,0 +1,119 @@
+extends layout
+
+block js
+  script(src='/components/jquery/dist/jquery.min.js')
+  script(src='/components/bootstrap/dist/js/bootstrap.min.js')
+  script(src='/components/datatables/media/js/jquery.dataTables.min.js')
+  script(src='/js/dataTables.fixedHeader.min.js')
+
+  if ENV_DEVELOPMENT
+    script(src='http://localhost:35729/livereload.js')
+  script(src='/js/init.js')
+
+block content
+  //p= JSON.stringify(records)
+  //p= JSON.stringify(records.DistrictAData)
+  //p= JSON.stringify(records.DistrictBData)
+  //
+  //table
+  //  tr
+  //    th= 'countProperty'
+  //    th= 'currentdistrict'
+  //    th= 'gender'
+  //  each val, index in records.refusedsurgeryl
+  //    tr
+  //      td= val.countProperty
+  //      td= val.currentdistrict
+  //      td= val.gender
+
+  table(id="summary",class="display", width="100%", cellspacing="0" )
+    thead
+      tr
+        th= 'District Name'
+        th(colspan=2,class="firstHeader")= 'Refusals (of surgery &/or epilation)'
+        th(colspan=2,class="firstHeader",title='Includes refusals.')= '# People Operated'
+        th(colspan=2,class="firstHeader")= 'Eyelids Operated'
+        th(colspan=2,class="firstHeader")= 'People Epilated'
+        th(colspan=2,class="firstHeader")= 'Eyelids Epilated'
+        th(colspan=2,class="firstHeader")= 'Bi-lateral Epilations'
+        th(colspan=2,class="firstHeader")= 'Uniateral Epilations'
+        th(colspan=2,class="firstHeader")= 'Eyelids classified as a failed surgery'
+        th(colspan=2,class="firstHeader")= 'Eyelids Showing Recurrence'
+      tr
+        th(class="secondHeader")= ''
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+        th(class="secondHeader")= 'Male'
+        th(class="secondHeader")= 'Female'
+    tbody
+      //tr
+      //  td= 'DistrictA'
+      //  if records.DistrictAData.refusedsurgeryl
+      //    if records.DistrictAData.refusedsurgeryl.gender == 'Male'
+      //      var refusedsurgeryl = records.DistrictAData.refusedsurgeryl.countproperty
+      //  if records.DistrictAData.refusedsurgeryr
+      //    if records.DistrictAData.refusedsurgeryr.gender == 'Male'
+      //      var refusedsurgeryr = records.DistrictAData.refusedsurgeryr.countproperty
+      //  td= refusedsurgeryl + refusedsurgeryr
+      //  if records.DistrictAData.operations
+      //    if records.DistrictAData.operations.gender == 'Female'
+      //      td=  operations = records.DistrictAData.operations.countproperty
+      each val, index in records.districts
+        - var fixed = val + "Data"
+        tr
+          //td= val + JSON.stringify(records[fixed])
+          td= val
+          if records[fixed]
+            td= records[fixed].refusedsurgery.Male
+            td= records[fixed].refusedsurgery.Female
+            td= records[fixed].operations.Male
+            td= records[fixed].operations.Female
+            td= records[fixed].eyelidsOperated.Male
+            td= records[fixed].eyelidsOperated.Female
+            td= records[fixed].peopleEpilated.Male
+            td= records[fixed].peopleEpilated.Female
+            td= records[fixed].eyelidsEpilated.Male
+            td= records[fixed].eyelidsEpilated.Female
+            td= records[fixed].bothEyelidsOperated.Male
+            td= records[fixed].bothEyelidsOperated.Female
+            td= records[fixed].unilateral.Male
+            td= records[fixed].unilateral.Female
+            td= records[fixed].failedSurgeries.Male
+            td= records[fixed].failedSurgeries.Female
+            td= ''
+            td= ''
+          else
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+            td= ''
+
+

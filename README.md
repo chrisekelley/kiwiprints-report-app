@@ -18,6 +18,10 @@ This app uses [Sequelize](http://docs.sequelizejs.com/en/latest/) node library f
 
      sequelize-auto -o "./models" -d kiwiprints -h localhost -u postgres -p 5432 -x password -e postgres
 
+# User Interface
+
+Uses bootstrap for general page layout and datatables for table header scrolling
+
 # Node postgres client
 
 [node-postgres](https://github.com/brianc/node-postgres)

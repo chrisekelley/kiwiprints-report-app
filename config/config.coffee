@@ -8,7 +8,7 @@ config =
     app:
       name: 'source'
     port: 3000
-    db: 'postgres://postgres:password@localhost/kiwiprints'
+    db: 'postgres://postgres:password@192.168.59.103/kiwiprints'
 
   test:
     root: rootPath

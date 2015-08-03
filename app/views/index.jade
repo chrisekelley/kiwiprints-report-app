@@ -1,16 +1,14 @@
-extends layout
+extends index_layout
 
 block content
-  h1= title
-  h2= subtitle
 
   ul
     li: a(href="annualReport", title="Annual Report") Annual Report
+    li: a(href="summaryReport", title="Summary Report") Summary Report
     li= 'Records'
       ul
         li: a(href="indiv", title="Individual Registration records") Individual Registration
         li: a(href="trichiasis", title="Trichiasis records") Trichiasis
-        li: a(href="post_operative_followup", title="Post operative followup records") Post operative followup
         li: a(href="post_operative_epilation", title="Post operative epilation records") Post operative epilation
         li: a(href="post_operative_followup_1day", title="Post operative followup 1 day records") Post operative followup 1 Day
         li: a(href="post_operative_followup_3_6_months", title="Post operative followup 3-6 months records") Post operative followup 3-6 months

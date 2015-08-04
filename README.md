@@ -20,7 +20,7 @@ This app uses [Sequelize](http://docs.sequelizejs.com/en/latest/) node library f
 
 # User Interface
 
-Uses bootstrap for general page layout and datatables for table header scrolling
+Uses bootstrap for general page layout and [datatables](https://datatables.net) for table header scrolling
 
 # Node postgres client
 

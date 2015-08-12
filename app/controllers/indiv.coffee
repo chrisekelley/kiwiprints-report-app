@@ -12,7 +12,7 @@ module.exports = (app) ->
   app.use '/', router
 
 router.get '/indiv', (req, res, next) ->
-  sequelize.query 'SELECT gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection, createdat, lastmodifiedat,complete, currentdistrict,savedby
+  sequelize.query 'SELECT _id, gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection, createdat, lastmodifiedat,complete, currentdistrict,savedby
     from indiv_reg
     WHERE collection = \'result\'
     ORDER BY lastmodifiedat DESC;', { model: indiv_reg }

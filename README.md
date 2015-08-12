@@ -2,7 +2,7 @@
 
 This app provides reports for data imported by [kiwiprints-postgres-import](https://github.com/chrisekelley/kiwiprints-postgres-import)
 
-# Generate app
+# How I generated this app:
 
 npm install -g generator-express
 
@@ -26,9 +26,15 @@ Uses bootstrap for general page layout and [datatables](https://datatables.net) 
 
 [node-postgres](https://github.com/brianc/node-postgres)
 
+# Docker instance for testing
+
+This repository sets up the database:
+
+[docker-postgres-kiwi](https://github.com/chrisekelley/docker-postgres-kiwi)
+
 # Run as daemon
 
-    forever start app.js
+    forever start ./source/kiwiprints-report-app/app.js
     forever list
     forever stop 0
 

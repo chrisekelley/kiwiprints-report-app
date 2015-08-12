@@ -33,6 +33,9 @@ table.dataTable tbody th, table.dataTable tbody td {
   text-align: right;
 }
 
+.container {
+  margin-left:5px;
+}
 /*table, th, td {*/
   /*border: 1px solid black;*/
 /*}*/

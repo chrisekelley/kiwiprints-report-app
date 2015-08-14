@@ -8,6 +8,14 @@ bodyParser = require 'body-parser'
 compress = require 'compression'
 methodOverride = require 'method-override'
 moment = require('moment');
+coffeeScript = require('coffee-script')
+fs = require 'fs'
+path = require('path')
+#connectCoffeescript = require('connect-coffee-script')
+
+nucompile = (str, options) ->
+  options.bare = true
+  coffeeScript.compile  str, options
 
 module.exports = (app, config) ->
   app.set 'views', config.root + '/app/views'
@@ -29,6 +37,22 @@ module.exports = (app, config) ->
   app.use compress()
   app.use express.static config.root + '/public'
   app.use methodOverride()
+
+#  app.use connectCoffeescript
+#    src: config.root + '/app/utils',
+#    dest: config.root + '/public/utils',
+##    compile: nucompile
+#    bare: true
+
+  app.use '/utils', (request, response, next) ->
+#    coffeeFile = path.join __dirname, "../app/utils", request.path
+    coffeeFile = config.root + '/app/utils/' +  request.path
+    console.log("coffeeFile: " + coffeeFile);
+    file = fs.readFile coffeeFile, "utf-8", (err, data) ->
+      return next() if err?
+      response
+        .contentType('text/javascript')
+        .send coffeeScript.compile data
 
   controllers = glob.sync config.root + '/app/controllers/**/*.coffee'
   controllers.forEach (controller) ->
@@ -61,3 +85,4 @@ module.exports = (app, config) ->
       message: err.message
       error: {}
       title: 'error'
+

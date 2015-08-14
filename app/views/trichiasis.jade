@@ -1,5 +1,16 @@
 extends layout
 
+block js
+  script(src='/components/jquery/dist/jquery.min.js')
+  script(src='/components/bootstrap/dist/js/bootstrap.min.js')
+  script(src='/components/datatables/media/js/jquery.dataTables.min.js')
+  script(src='/js/dataTables.fixedHeader.min.js')
+  if ENV_DEVELOPMENT
+    script(src='http://localhost:35729/livereload.js')
+  script(src='/js/init.js')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDD91G21jFeq9M0jXTCmkKWjm1P1nulQx4')
+  script(src='/utils/KiwiUtils.coffee')
+
 block content
 
   table(id="summary",class="display", width="100%", cellspacing="0" )

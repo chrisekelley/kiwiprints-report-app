@@ -22,7 +22,7 @@ assignDistrict = (reportData, record, type)->
   districtData = reportData["#{district}Data"]
   if typeof districtData == 'undefined'
     reportData["#{district}Data"] = {}
-  console.log("record: " + type + ":" + district)
+#  console.log("record: " + type + ":" + district)
   if typeof reportData["#{district}Data"][type] == 'undefined'
     reportData["#{district}Data"][type] = {}
   reportData["#{district}Data"][type][record.gender] = record.countproperty
@@ -93,16 +93,18 @@ computeReportData = (property)->
     annualReportData[property]["refusedsurgery"]["Male"] = parseInt(refusedsurgerylMale)+parseInt(refusedsurgeryrMale)
     annualReportData[property]["refusedsurgery"]["Female"] = parseInt(refusedsurgerylFemale)+parseInt(refusedsurgeryrFemale)
 #    console.log(JSON.stringify(annualReportData[property]))
-    console.log(property + ": " + " refusedsurgerylMale: " + refusedsurgerylMale + " refusedsurgeryrMale: " + refusedsurgeryrMale + " refusedsurgerylFemale: " + refusedsurgerylFemale + " refusedsurgeryrFemale: " + refusedsurgeryrFemale + " operationsCountMale: " + operationsCountMale+ " operationsCountFemale: " + operationsCountFemale)
+#    console.log(property + ": " + " refusedsurgerylMale: " + refusedsurgerylMale + " refusedsurgeryrMale: " + refusedsurgeryrMale + " refusedsurgerylFemale: " + refusedsurgerylFemale + " refusedsurgeryrFemale: " + refusedsurgeryrFemale + " operationsCountMale: " + operationsCountMale+ " operationsCountFemale: " + operationsCountFemale)
 #  refusedSurgery = refusedsurgeryl + refusedsurgeryr
 
 
 router.get '/annualReport', (req, res, next) ->
+  whereYear = '    AND date_part(\'year\', t.createdat) = date_part(\'year\', CURRENT_TIMESTAMP)';
 
   sequelize.query 'SELECT COUNT(refusedsurgeryl) AS countProperty , t.currentDistrict AS currentDistrict, i.gender AS gender
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND refusedsurgeryl = \'true\'
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     annualReportData.refusedsurgeryl = results
@@ -113,6 +115,7 @@ router.get '/annualReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND refusedsurgeryr = \'true\'
+  ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     annualReportData.refusedsurgeryr = results
@@ -122,6 +125,7 @@ router.get '/annualReport', (req, res, next) ->
     sequelize.query 'SELECT COUNT(t.*) AS countProperty, t.currentDistrict, i.gender
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     annualReportData.operations = results
@@ -134,6 +138,7 @@ router.get '/annualReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND (typeofoperationl != \'\' OR typeofoperationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     annualReportData.eyelidsOperated = results
@@ -146,6 +151,7 @@ router.get '/annualReport', (req, res, next) ->
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (providedepilationconsultationl != \'\' OR providedepilationconsultationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     annualReportData.peopleEpilated = results
@@ -159,6 +165,7 @@ router.get '/annualReport', (req, res, next) ->
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (providedepilationconsultationl != \'\' OR providedepilationconsultationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     annualReportData.eyelidsEpilated = results
@@ -186,6 +193,7 @@ router.get '/annualReport', (req, res, next) ->
     OR globepuncturer != ''
     OR complicationsreferralr != ''
     )
+    " + whereYear + "
     GROUP BY i.gender, t.currentDistrict;"
   .spread (results, metadata)->
     annualReportData.failedSurgeries = results
@@ -200,4 +208,7 @@ router.get '/annualReport', (req, res, next) ->
       records: annualReportData
 
 #// Each record will now be a instance of Project
+
+
+
 

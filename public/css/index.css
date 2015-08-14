@@ -29,7 +29,7 @@ table.dataTable tbody th, table.dataTable tbody td {
 }
 
 .dataTables_wrapper .dataTables_filter {
-  float: right;
+  float: left;
   text-align: right;
 }
 

@@ -12,9 +12,11 @@ module.exports = (app) ->
   app.use '/', router
 
 router.get '/indiv', (req, res, next) ->
+  whereYear = '    WHERE date_part(\'year\', createdat) = date_part(\'year\', CURRENT_TIMESTAMP)';
+
   sequelize.query 'SELECT _id, gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection, createdat, lastmodifiedat,complete, currentdistrict,savedby
     from indiv_reg
-    WHERE collection = \'result\'
+    ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: indiv_reg }
   .then (indiv_reg)->
     res.render 'indiv',

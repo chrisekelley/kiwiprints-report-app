@@ -7,8 +7,6 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
-  //require('grunt-contrib-watch')(grunt);
-  grunt.loadNpmTasks('grunt-contrib-watch');
 
   var reloadPort = 35729, files;
 
@@ -28,7 +26,7 @@ module.exports = function (grunt) {
     },
     watch: {
       options: {
-        spawn: false,
+        nospawn: true,
         livereload: reloadPort
       },
       js: {
@@ -37,18 +35,7 @@ module.exports = function (grunt) {
           'app/**/*.coffee',
           'config/*.coffee'
         ],
-        options: {
-          livereload: reloadPort
-        },
-        tasks: ['develop']
-      },
-      jade: {
-        files: [
-          'app/**/*.jade',
-        ],
-        options: {
-          livereload: reloadPort
-        }
+        tasks: ['develop', 'delayed-livereload']
       },
       css: {
         files: [
@@ -69,24 +56,23 @@ module.exports = function (grunt) {
     }
   });
 
-  //grunt.config.requires('watch.js.files');
-  //files = grunt.config('watch.js.files');
-  //grunt.log.ok('\n files: ' + files);
-  //files = grunt.file.expand(files);
-  //
-  //grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
-  //  var done = this.async();
-  //  setTimeout(function () {
-  //    request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function(err, res) {
-  //        var reloaded = !err && res.statusCode === 200;
-  //        if (reloaded)
-  //          grunt.log.ok('Delayed live reload successful.');
-  //        else
-  //          grunt.log.error('Unable to make a delayed live reload.');
-  //        done(reloaded);
-  //      });
-  //  }, 500);
-  //});
+  grunt.config.requires('watch.js.files');
+  files = grunt.config('watch.js.files');
+  files = grunt.file.expand(files);
+
+  grunt.registerTask('delayed-livereload', 'Live reload after the node server has restarted.', function () {
+    var done = this.async();
+    setTimeout(function () {
+      request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function(err, res) {
+        var reloaded = !err && res.statusCode === 200;
+        if (reloaded)
+          grunt.log.ok('Delayed live reload successful.');
+        else
+          grunt.log.error('Unable to make a delayed live reload.');
+        done(reloaded);
+      });
+    }, 500);
+  });
 
   grunt.registerTask('default', [
     'sass',

@@ -2,9 +2,6 @@
   "name": "source",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
   "dependencies": {
     "body-parser": "~1.12.0",
     "compression": "~1.4.1",
@@ -24,10 +21,15 @@
   "devDependencies": {
     "coffee-script": "~1.9.1",
     "grunt": "~0.4.5",
+    "grunt-concurrent": "^2.0.1",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-develop": "~0.4.0",
+    "grunt-express": "^1.4.1",
+    "grunt-nodemon": "^0.4.0",
+    "grunt-open": "^0.2.3",
     "grunt-sass": "~0.18.0",
     "load-grunt-tasks": "~3.1.0",
+    "open": "0.0.5",
     "q": "^1.4.1",
     "request": "~2.55.0",
     "time-grunt": "~1.1.0"

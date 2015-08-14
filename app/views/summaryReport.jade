@@ -11,71 +11,44 @@ block js
   script(src='/js/init.js')
 
 block content
-  //p= JSON.stringify(records)
-  //p= JSON.stringify(records.DistrictAData)
-  //p= JSON.stringify(records.DistrictBData)
-  //
-  //table
-  //  tr
-  //    th= 'countProperty'
-  //    th= 'currentdistrict'
-  //    th= 'gender'
-  //  each val, index in records.refusedsurgeryl
-  //    tr
-  //      td= val.countProperty
-  //      td= val.currentdistrict
-  //      td= val.gender
 
   table(id="summary",class="display", width="100%", cellspacing="0" )
     thead
       tr
         th= 'District Name'
-        th(colspan=2,class="firstHeader")= 'Refusals (of surgery &/or epilation)'
-        th(colspan=2,class="firstHeader",title='Includes refusals.')= '# People Operated'
-        th(colspan=2,class="firstHeader")= 'Eyelids Operated'
-        th(colspan=2,class="firstHeader")= 'People Epilated'
-        th(colspan=2,class="firstHeader")= 'Eyelids Epilated'
-        th(colspan=2,class="firstHeader")= 'Bi-lateral Epilations'
-        th(colspan=2,class="firstHeader")= 'Uniateral Epilations'
-        th(colspan=2,class="firstHeader")= 'Eyelids classified as a failed surgery'
-        th(colspan=2,class="firstHeader")= 'Eyelids Showing Recurrence'
+        th(colspan=2)= '# Refusals (of surgery &/or epilation)'
+        th(colspan=2,title='Includes refusals.')= '# People Operated'
+        th(colspan=2)= '# Eyelids Operated'
+        th(colspan=2)= '# People Epilated'
+        th(colspan=2)= '# Eyelids Epilated'
+        th(colspan=2)= '# Bi-lateral Epilations'
+        th(colspan=2)= '# Uniateral Epilations'
+        th(colspan=2)= '# Eyelids classified as a failed surgery'
+        th(colspan=2)= '# Eyelids Showing Recurrence'
       tr
-        th(class="secondHeader")= ''
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
-        th(class="secondHeader")= 'Male'
-        th(class="secondHeader")= 'Female'
+        th= ''
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
+        th= 'Male'
+        th= 'Female'
     tbody
-      //tr
-      //  td= 'DistrictA'
-      //  if records.DistrictAData.refusedsurgeryl
-      //    if records.DistrictAData.refusedsurgeryl.gender == 'Male'
-      //      var refusedsurgeryl = records.DistrictAData.refusedsurgeryl.countproperty
-      //  if records.DistrictAData.refusedsurgeryr
-      //    if records.DistrictAData.refusedsurgeryr.gender == 'Male'
-      //      var refusedsurgeryr = records.DistrictAData.refusedsurgeryr.countproperty
-      //  td= refusedsurgeryl + refusedsurgeryr
-      //  if records.DistrictAData.operations
-      //    if records.DistrictAData.operations.gender == 'Female'
-      //      td=  operations = records.DistrictAData.operations.countproperty
       each val, index in records.districts
         - var fixed = val + "Data"
         tr
-          //td= val + JSON.stringify(records[fixed])
           td= val
           if records[fixed]
             td= records[fixed].refusedsurgery.Male

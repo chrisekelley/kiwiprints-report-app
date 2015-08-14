@@ -17,6 +17,7 @@ module.exports = (app, config) ->
   app.locals.ENV = env
   app.locals.ENV_DEVELOPMENT = env == 'development'
   app.locals.moment = moment
+  app.locals.pretty = true;
 
 # app.use(favicon(config.root + '/public/img/favicon.ico'));
   app.use logger 'dev'

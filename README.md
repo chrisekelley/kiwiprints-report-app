@@ -32,6 +32,10 @@ This repository sets up the database:
 
 [docker-postgres-kiwi](https://github.com/chrisekelley/docker-postgres-kiwi)
 
+# Run for development
+
+    grunt
+
 # Run as daemon
 
     forever start ./source/kiwiprints-report-app/app.js

@@ -140,11 +140,13 @@ computeReportData = (property)->
 
 
 router.get '/summaryReport', (req, res, next) ->
+  whereYear = '    AND date_part(\'year\', t.createdat) = date_part(\'year\', CURRENT_TIMESTAMP)';
 
   sequelize.query 'SELECT COUNT(refusedsurgeryl) AS countProperty , t.currentDistrict AS currentDistrict, i.gender AS gender
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND refusedsurgeryl = \'true\'
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.refusedsurgeryl = results
@@ -155,6 +157,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND refusedsurgeryr = \'true\'
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.refusedsurgeryr = results
@@ -164,6 +167,7 @@ router.get '/summaryReport', (req, res, next) ->
     sequelize.query 'SELECT COUNT(t.*) AS countProperty, t.currentDistrict, i.gender
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.operations = results
@@ -176,6 +180,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND (typeofoperationl != \'\' OR typeofoperationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.eyelidsOperated = results
@@ -188,6 +193,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND ((typeofoperationl IS NULL OR typeofoperationl = \'\') AND typeofoperationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.onlyRightEyelidsOperated = results
@@ -200,6 +206,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND ((typeofoperationr IS NULL OR typeofoperationr = \'\') AND typeofoperationl != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.onlyLeftEyelidsOperated = results
@@ -212,6 +219,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND (typeofoperationl != \'\' AND typeofoperationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.bothEyelidsOperated = results
@@ -224,6 +232,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (providedepilationconsultationl != \'\' OR providedepilationconsultationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.peopleEpilated = results
@@ -237,6 +246,7 @@ router.get '/summaryReport', (req, res, next) ->
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (providedepilationconsultationl != \'\' OR providedepilationconsultationr != \'\')
+    ' + whereYear + '
     GROUP BY i.gender, t.currentDistrict;'
   .spread (results, metadata)->
     reportData.eyelidsEpilated = results
@@ -264,6 +274,7 @@ router.get '/summaryReport', (req, res, next) ->
     OR globepuncturer != ''
     OR complicationsreferralr != ''
     )
+    " + whereYear + "
     GROUP BY i.gender, t.currentDistrict;"
   .spread (results, metadata)->
     reportData.failedSurgeries = results

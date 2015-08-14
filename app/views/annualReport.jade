@@ -11,20 +11,6 @@ block js
   script(src='/js/init.js')
 
 block content
-  //p= JSON.stringify(records)
-  //p= JSON.stringify(records.DistrictAData)
-  //p= JSON.stringify(records.DistrictBData)
-  //
-  //table
-  //  tr
-  //    th= 'countProperty'
-  //    th= 'currentdistrict'
-  //    th= 'gender'
-  //  each val, index in records.refusedsurgeryl
-  //    tr
-  //      td= val.countProperty
-  //      td= val.currentdistrict
-  //      td= val.gender
 
   table(id="summary",class="display", width="100%", cellspacing="0" )
     thead
@@ -53,23 +39,10 @@ block content
         th= 'Female'
         th= 'Male'
         th= 'Female'
-    //tr
-    //  td= 'DistrictA'
-    //  if records.DistrictAData.refusedsurgeryl
-    //    if records.DistrictAData.refusedsurgeryl.gender == 'Male'
-    //      var refusedsurgeryl = records.DistrictAData.refusedsurgeryl.countproperty
-    //  if records.DistrictAData.refusedsurgeryr
-    //    if records.DistrictAData.refusedsurgeryr.gender == 'Male'
-    //      var refusedsurgeryr = records.DistrictAData.refusedsurgeryr.countproperty
-    //  td= refusedsurgeryl + refusedsurgeryr
-    //  if records.DistrictAData.operations
-    //    if records.DistrictAData.operations.gender == 'Female'
-    //      td=  operations = records.DistrictAData.operations.countproperty
     tbody
       each val, index in records.districts
         - var fixed = val + "Data"
         tr
-          //td= val + JSON.stringify(records[fixed])
           td= val
           if records[fixed]
             td= records[fixed].refusedsurgery.Male

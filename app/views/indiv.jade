@@ -17,6 +17,14 @@ block content
         th= 'complete'
         th= 'currenthistrict'
         th= 'savedby'
+        th= 'version_code'
+        th= 'serviceUuid'
+        th= 'createdByOfflineUser'
+        th= 'latitude'
+        th= 'longitude'
+        th= 'gps_timestamp'
+        th= 'gpsCity'
+
     tbody
       each val, index in registrations[0]
         tr
@@ -32,4 +40,11 @@ block content
           td= val.complete
           td= val.currentdistrict
           td= val.savedby
+          td= val.version_code
+          td= val.serviceuuid
+          td= val.createdByOfflineUser
+          td= val.latitude
+          td= val.longitude
+          td= val.gps_timestamp
+          td= val.gpsCity
 

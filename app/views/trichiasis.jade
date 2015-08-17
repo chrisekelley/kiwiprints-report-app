@@ -65,6 +65,7 @@ block content
         th= 'latitude'
         th= 'longitude'
         th= 'gps_timestamp'
+        th= 'City'
     tbody
       each val, index in records[0]
         tr
@@ -117,4 +118,13 @@ block content
           td= val.latitude
           td= val.longitude
           td= val.gps_timestamp
+          td(id='city'+val._id)= ''
 
+//block js2
+//  script.
+//    window.onload = function() {
+//      var gpsArray = [];
+//      var gps = !{JSON.stringify(gpsCitiesString)};
+//      gpsArray.push(gps);
+//      KiwiUtils.initGPS(gpsArray);
+//    }

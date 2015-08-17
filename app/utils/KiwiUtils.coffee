@@ -7,7 +7,8 @@ KiwiUtils.geocoderDelay = 500;
 KiwiUtils.nextAddress = 0;
 KiwiUtils.geocoder = new google.maps.Geocoder()
 KiwiUtils.cache = {}
-KiwiUtils.getCity =  (search, next) ->
+KiwiUtils.getCity =  (searchString, next) ->
+  search = JSON.parse(searchString);
   city = ""
   if typeof search == 'undefined'
     console.log("Empty search")
@@ -22,7 +23,7 @@ KiwiUtils.getCity =  (search, next) ->
     key = latitude + '' + longitude
     if KiwiUtils.cache.hasOwnProperty(key)
       city = KiwiUtils.cache[key]
-      console.log("cached city: " + city + " KiwiUtils.geocoderDelay: " + KiwiUtils.geocoderDelay + " KiwiUtils.nextAddress: " + KiwiUtils.nextAddress)
+      console.log("cached city: " + city + " latitude: " + latitude + " longitude" + longitude + " KiwiUtils.geocoderDelay: " + KiwiUtils.geocoderDelay + " KiwiUtils.nextAddress: " + KiwiUtils.nextAddress)
       cityEl = document.getElementById("city" + id)
       cityEl.innerHTML = city
       next();
@@ -48,13 +49,15 @@ KiwiUtils.getCity =  (search, next) ->
             KiwiUtils.nextAddress = KiwiUtils.nextAddress - 1
             KiwiUtils.geocoderDelay = KiwiUtils.geocoderDelay + 100
             city = "Over Query Limit; retrying."
-        console.log("city: " + city + " KiwiUtils.geocoderDelay: " + KiwiUtils.geocoderDelay + " KiwiUtils.nextAddress: " + KiwiUtils.nextAddress)
+        console.log("city: " + city + " latitude: " + latitude + " longitude: " + longitude + " KiwiUtils.geocoderDelay: " + KiwiUtils.geocoderDelay + " KiwiUtils.nextAddress: " + KiwiUtils.nextAddress)
+        console.log("cityId: " + "city" + id)
         cityEl = document.getElementById("city" + id)
         cityEl.innerHTML = city
         next();
   )
 
 KiwiUtils.initGPS = (gpsList) ->
+#  console.log("gpsList: " + gpsList)
   KiwiUtils.gpsList = gpsList
   KiwiUtils.processGPS()
 

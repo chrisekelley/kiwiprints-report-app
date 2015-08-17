@@ -38,16 +38,9 @@ module.exports = (app, config) ->
   app.use express.static config.root + '/public'
   app.use methodOverride()
 
-#  app.use connectCoffeescript
-#    src: config.root + '/app/utils',
-#    dest: config.root + '/public/utils',
-##    compile: nucompile
-#    bare: true
-
+  # kudos: http://www.cyrusinnovation.com/serving-coffee-with-express/
   app.use '/utils', (request, response, next) ->
-#    coffeeFile = path.join __dirname, "../app/utils", request.path
     coffeeFile = config.root + '/app/utils/' +  request.path
-    console.log("coffeeFile: " + coffeeFile);
     file = fs.readFile coffeeFile, "utf-8", (err, data) ->
       return next() if err?
       response

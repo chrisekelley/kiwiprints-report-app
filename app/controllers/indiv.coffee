@@ -14,7 +14,15 @@ module.exports = (app) ->
 router.get '/indiv', (req, res, next) ->
   whereYear = '    WHERE date_part(\'year\', createdat) = date_part(\'year\', CURRENT_TIMESTAMP)';
 
-  sequelize.query 'SELECT _id, gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection, createdat, lastmodifiedat,complete, currentdistrict,savedby
+#  CREATE TABLE indiv_reg (_id text, _rev text, District text, Gender text, DOB text, registrationLocation text,
+#    previouslyRegisterredNowOffline text, question text, collection text, createdAt timestamp, lastModifiedAt timestamp,
+#      complete text, currentDistrict text, savedBy text, clientId text, version_code text, serviceUuid text, createdByOfflineUser text,
+#        latitude double precision,longitude double precision, gps_timestamp timestamp, gpsCity text,
+#          CONSTRAINT indiv_reg_pkey PRIMARY KEY (_id));
+
+  sequelize.query 'SELECT _id, gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection,
+createdat, lastmodifiedat,complete, currentdistrict, savedby, clientId, version_code, serviceUuid, createdByOfflineUser,
+latitude, longitude, gps_timestamp, gpsCity
     from indiv_reg
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: indiv_reg }

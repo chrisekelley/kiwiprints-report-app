@@ -58,7 +58,35 @@ module.exports = function(sequelize, DataTypes) {
     savedby: {
       type: DataTypes.TEXT,
       allowNull: true,
-    }
+    },
+    version_code: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    serviceuuid: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    createdByOfflineUser: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    latitude: {
+      type: 'DOUBLE PRECISION',
+      allowNull: true,
+      },
+    longitude: {
+      type: 'DOUBLE PRECISION',
+      allowNull: true,
+      },
+    gps_timestamp: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      },
+    gpsCity: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      },
   },{
     timestamps: false,
     freezeTableName:true,

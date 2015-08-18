@@ -39,7 +39,8 @@ router.get '/trichiasis', (req, res, next) ->
     referralhospitall,refusedsurgeryr,providedepilationconsultationr,visualacuityr,countlashestouchingeyeballr,evidenceofepilationr,
     photographpreopr,cataractr,cornealopacityr,acceptedsurgeryr,typeofoperationr,clampusedr,suturetyper,excessbleedingr,
     marginfragmantseveredr,globepuncturer,complicationsreferralr,referralhospitalr,complete,currentdistrict,savedby,clientid,
-    latitude,longitude,gps_timestamp
+    version_code, serviceUuid, createdByOfflineUser,
+    latitude,longitude,gps_timestamp, gpsCity, deviceUuid
     from trichiasis
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: trichiasis }

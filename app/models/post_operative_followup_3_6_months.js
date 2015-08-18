@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_operative_followup_3_6_months', { 
+  return sequelize.define('post_operative_followup_3_6_months', {
     _id: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -78,6 +78,18 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    version_code: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    serviceuuid: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    createdByOfflineUser: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     latitude: {
       type: 'DOUBLE PRECISION',
       allowNull: true,
@@ -88,6 +100,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     gps_timestamp: {
       type: DataTypes.DATE,
+      allowNull: true,
+    },
+    gpsCity: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    deviceUuid: {
+      type: DataTypes.TEXT,
       allowNull: true,
     }
   });

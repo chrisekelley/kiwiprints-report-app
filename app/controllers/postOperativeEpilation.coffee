@@ -17,8 +17,8 @@ router.get '/post_operative_epilation', (req, res, next) ->
   sequelize.query 'SELECT _id,_rev,question,collection,createdat,lastmodifiedat,servicelocation,dateofvisit,timeofvisit,
     adviceForSurgeryL,adviceForSurgeryR,cornealOpacityL,cornealOpacityR,countLashesTouchingEyeballL,countLashesTouchingEyeballR,
     Observations,visualAcuityL,visualAcuityR
-    complete,currentdistrict,savedby,clientid,
-    latitude,longitude,gps_timestamp
+    complete,currentdistrict,savedby,clientid, version_code, serviceUuid, createdByOfflineUser,
+    latitude,longitude,gps_timestamp, gpsCity, deviceUuid
     from post_operative_epilation
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: post_operative_epilation }

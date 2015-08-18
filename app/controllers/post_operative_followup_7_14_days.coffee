@@ -19,7 +19,8 @@ router.get '/post_operative_followup_7_14_days', (req, res, next) ->
     numberReturnInDaysMonthsL,numberReturnInDaysMonthsR,referredToHospitalL,referredToHospitalR,referredToHospitalTextL,
     referredToHospitalTextR,removalOfSuturesL,removalOfSuturesR,returnForFollowupL,returnForFollowupR,returnInDaysMonthsL,
     returnInDaysMonthsR,subCorrectionL,subCorrectionR,
-    complete,currentdistrict,savedby,clientid,latitude,longitude,gps_timestamp
+    complete,currentdistrict,savedby,clientid, version_code, serviceUuid, createdByOfflineUser,latitude,longitude,gps_timestamp,
+    gpsCity, deviceUuid
     from post_operative_followup_7_14_days
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: post_operative_followup_7_14_days }

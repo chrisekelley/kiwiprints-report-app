@@ -59,6 +59,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    clientid: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     version_code: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -87,6 +91,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true,
       },
+    deviceUuid: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      }
   },{
     timestamps: false,
     freezeTableName:true,

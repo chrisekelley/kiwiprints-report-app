@@ -16,7 +16,13 @@ This app uses [Sequelize](http://docs.sequelizejs.com/en/latest/) node library f
 
 [sequelize-auto](https://github.com/sequelize/sequelize-auto) to convert table into models, which the ORM uses.
 
-     sequelize-auto -o "./models" -d kiwiprints -h localhost -u postgres -p 5432 -x password -e postgres
+     sequelize-auto -o "./generated_models" -d kiwiprints -h 192.168.59.103 -u kiwiprints -p 5432 -x password -e postgres
+
+Sequelize wants table names to be plural; if they are singular, it will create new plural tables. Some of the non-plural
+tables have extra properties to disable this behaviour:
+
+    timestamps: false,
+    tableName: 'gps_cache'
 
 # User Interface
 
@@ -25,6 +31,10 @@ Uses bootstrap for general page layout and [datatables](https://datatables.net) 
 # Node postgres client
 
 [node-postgres](https://github.com/brianc/node-postgres)
+
+## Configure database
+
+Adjust settings in config/config.coffee
 
 # Docker instance for testing
 

@@ -1,12 +1,32 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post_operative_followup_1day', {
+  return sequelize.define('admin_reg', {
     _id: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     _rev: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    name: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    profession: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    association: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    district: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
@@ -26,28 +46,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    servicelocation: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    dateofvisit: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    timeofvisit: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-    },
-    azithromycinr: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-    },
-    tetracyclineeyeointmentr: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-    },
     complete: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     currentdistrict: {
@@ -70,7 +70,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    createdByOfflineUser: {
+    createdbyofflineuser: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
@@ -86,16 +86,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    gpsCity: {
+    gpscity: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    deviceUuid: {
+    deviceuuid: {
       type: DataTypes.TEXT,
       allowNull: true,
     }
   },{
     timestamps: false,
-    tableName: 'post_operative_followup_1day'
+    tableName: 'admin_reg'
   });
 };

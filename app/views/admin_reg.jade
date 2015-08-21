@@ -1,0 +1,56 @@
+extends layout
+
+block content
+
+  table(id="summary",class="display", width="100%", cellspacing="0" )
+    thead
+      tr
+        th= '_id'
+        th= 'name'
+        th= 'email'
+        th= 'profession'
+        th= 'association'
+        th= 'district'
+        th= 'question'
+        th= 'collection'
+        th= 'createdat'
+        th= 'lastmodifiedat'
+        th= 'complete'
+        th= 'currentdistrict'
+        th= 'savedby'
+        th= 'clientid'
+        th= 'version_code'
+        th= 'serviceuuid'
+        th= 'createdbyofflineuser'
+        th= 'latitude'
+        th= 'longitude'
+        th= 'gps_timestamp'
+        th= 'gpscity'
+        th= 'deviceuuid'
+
+    tbody
+      each val, index in registrations[0]
+        tr
+          td= val._id
+          td= val.name
+          td= val.email
+          td= val.profession
+          td= val.association
+          td= val.district
+          td= val.question
+          td= val.collection
+          td= val.createdat
+          td= val.lastmodifiedat
+          td= val.complete
+          td= val.currentdistrict
+          td= val.savedby
+          td= val.clientid
+          td= val.version_code
+          td= val.serviceuuid
+          td= val.createdbyofflineuser
+          td= val.latitude
+          td= val.longitude
+          td= val.gps_timestamp
+          td= val.gpscity
+          td= val.deviceuuid
+

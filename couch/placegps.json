@@ -1,0 +1,25 @@
+{
+  "place_id": "17124485",
+  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright",
+  "osm_type": "node",
+  "osm_id": "1643207884",
+  "lat": "41.3835949",
+  "lon": "2.1778035",
+  "display_name": "Dibar cafe, Baixada de la Llibreteria, el Gòtic, Ciutat Vella, Barcelona, BCN, CAT, 08003, España",
+  "address": {
+    "cafe": "Dibar cafe",
+    "pedestrian": "Baixada de la Llibreteria",
+    "suburb": "el Gòtic",
+    "city_district": "Ciutat Vella",
+    "city": "Barcelona",
+    "county": "BCN",
+    "state": "CAT",
+    "postcode": "08003",
+    "country": "España",
+    "country_code": "es"
+  },
+  "latitude": 41.3836463,
+  "longitude": 2.1779598,
+  "_id": "oflId-jj99ni1irklgc7eewejcasyrgw9t5f",
+  "_rev": "54-8185089ef91f5cf60fe2f7336b4e2518"
+}

@@ -1,4 +1,3 @@
-process.setMaxListeners(0);
 express  = require 'express'
 router = express.Router()
 db = require '../models'

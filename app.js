@@ -1,3 +1,4 @@
+process.setMaxListeners(0);
 require('coffee-script/register');
 
 var express = require('express'),
@@ -15,4 +16,3 @@ db.sequelize
   }).catch(function (e) {
     throw new Error(e);
   });
-

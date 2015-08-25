@@ -1,3 +1,4 @@
+process.setMaxListeners(0);
 express  = require 'express'
 router = express.Router()
 db = require '../models'
@@ -288,4 +289,3 @@ router.get '/summaryReport', (req, res, next) ->
       records: reportData
 
 #// Each record will now be a instance of Project
-

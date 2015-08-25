@@ -5,8 +5,7 @@ Sequelize = require('sequelize')
 config = require('../../config/config')
 summaryReport = require '../reportmodels/summaryReport'
 
-sequelize = new Sequelize config.db,
-  storage: config.storage
+sequelize = new Sequelize config.db
 
 module.exports = (app) ->
   app.use '/', router

@@ -32,7 +32,9 @@ block content
         th= 'latitude'
         th= 'longitude'
         th= 'gps_timestamp'
-        th= 'gpsCity'
+        th= 'gps_name'
+        th= 'gps_city'
+        th= 'gps_country'
         th= 'deviceUuid'
     tbody
       each val, index in records[0]
@@ -64,6 +66,8 @@ block content
           td= val.latitude
           td= val.longitude
           td= val.gps_timestamp
-          td= val.gpsCity
+          td= val.gps_name
+          td= val.gps_city
+          td= val.gps_country
           td= val.deviceuuid
 

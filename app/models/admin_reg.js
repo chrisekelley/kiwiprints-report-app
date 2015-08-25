@@ -86,7 +86,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    gpscity: {
+    gps_name: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    gps_city: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    gps_country: {
       type: DataTypes.TEXT,
       allowNull: true,
     },

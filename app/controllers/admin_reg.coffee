@@ -26,7 +26,7 @@ router.get '/admin_reg', (req, res, next) ->
 
   sequelize.query 'SELECT _id, name,email,profession,association,district,question,collection,createdat,lastmodifiedat,
 complete,currentdistrict,savedby,clientid,version_code,serviceuuid,createdbyofflineuser,
-latitude,longitude,gps_timestamp,gpscity,deviceuuid
+latitude,longitude,gps_timestamp, gps_name, gps_city, gps_country,deviceuuid
     from admin_reg
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: admin_reg }

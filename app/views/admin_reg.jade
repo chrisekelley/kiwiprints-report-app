@@ -25,7 +25,9 @@ block content
         th= 'latitude'
         th= 'longitude'
         th= 'gps_timestamp'
-        th= 'gpscity'
+        th= 'gps_name'
+        th= 'gps_city'
+        th= 'gps_country'
         th= 'deviceuuid'
 
     tbody
@@ -51,6 +53,8 @@ block content
           td= val.latitude
           td= val.longitude
           td= val.gps_timestamp
-          td= val.gpscity
+          td= val.gps_name
+          td= val.gps_city
+          td= val.gps_country
           td= val.deviceuuid
 

@@ -17,7 +17,7 @@ router.get '/post_operative_followup', (req, res, next) ->
   sequelize.query 'SELECT _id,_rev,question,collection,createdat,lastmodifiedat,servicelocation,dateofvisit,timeofvisit,
     completedtreatment,complicationsreferralr,complicationsrefertoclinichospital,continuemonitoring,followupdate,
     nameofprocedurebeingfollowed,recurrence,referralhospitalr,complete,currentdistrict,savedby,clientid,
-    version_code, serviceUuid, createdByOfflineUser, latitude,longitude,gps_timestamp, gpsCity, deviceUuid
+    version_code, serviceUuid, createdByOfflineUser, latitude,longitude,gps_timestamp, gps_name, gps_city, gps_country, deviceUuid
     from post_operative_followup
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: post_operative_followup }

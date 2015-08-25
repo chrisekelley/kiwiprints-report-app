@@ -18,7 +18,7 @@ router.get '/post_operative_epilation', (req, res, next) ->
     adviceForSurgeryL,adviceForSurgeryR,cornealOpacityL,cornealOpacityR,countLashesTouchingEyeballL,countLashesTouchingEyeballR,
     Observations,visualAcuityL,visualAcuityR
     complete,currentdistrict,savedby,clientid, version_code, serviceUuid, createdByOfflineUser,
-    latitude,longitude,gps_timestamp, gpsCity, deviceUuid
+    latitude,longitude,gps_timestamp, gps_name, gps_city, gps_country, deviceUuid
     from post_operative_epilation
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: post_operative_epilation }

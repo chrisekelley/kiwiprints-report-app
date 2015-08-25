@@ -6,9 +6,15 @@ config = require('../../config/config')
 admin_reg = require '../models/admin_reg'
 indiv_reg = require '../models/indiv_reg'
 trichiasis = require '../models/trichiasis'
+post_operative_followup = require '../models/post_operative_followup'
+post_operative_followup_1day = require '../models/post_operative_followup_1day'
+post_operative_followup_3_6_months = require '../models/post_operative_followup_3_6_months'
+post_operative_followup_7_14_days = require '../models/post_operative_followup_7_14_days'
+post_operative_epilation = require '../models/post_operative_epilation'
 gps_cache = require '../models/gps_cache'
 rest = require('restler')
 fs = require('fs')
+credentials = require('../../../kiwiprints-report-app-credentials.json')
 
 Kiwiprints = {}
 Kiwiprints.nextItems = []
@@ -25,7 +31,7 @@ router.get '/lookup_gps', (req, res, next) ->
 
 
 
-  sequelize.query 'SELECT _id, _rev, latitude,longitude,gps_timestamp,gpscity
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
     from admin_reg
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: admin_reg }
@@ -48,25 +54,69 @@ router.get '/lookup_gps', (req, res, next) ->
 #    )
 
 
-#  sequelize.query 'SELECT _id, _rev, latitude,longitude,gps_timestamp,gpscity
-#    from indiv_reg
-#    ' + whereYear + '
-#    ORDER BY lastmodifiedat DESC;', { model: indiv_reg }
-#  .then (indiv_reg)->
-##    process 'indiv_reg', record for record in indiv_reg[0]
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from indiv_reg
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: indiv_reg }
+  .then (indiv_reg)->
+#    process 'indiv_reg', record for record in indiv_reg[0]
 #    run 'indiv_reg', record for record in indiv_reg[0]
-#
-#  sequelize.query 'SELECT _id, _rev, latitude,longitude,gps_timestamp,gpscity
-#    from trichiasis
-#    ' + whereYear + '
-#    ORDER BY lastmodifiedat DESC;', { model: trichiasis }
-#  .then (trichiasis)->
-##    process 'trichiasis', record for record in trichiasis[0]
+    Kiwiprints.nextItems['indiv_reg'] = 0
+    processItems('indiv_reg', indiv_reg[0], Kiwiprints.nextItems['indiv_reg'])
+
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from trichiasis
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: trichiasis }
+  .then (trichiasis)->
+#    process 'trichiasis', record for record in trichiasis[0]
 #    run 'trichiasis', record for record in trichiasis[0]
+    Kiwiprints.nextItems['trichiasis'] = 0
+    processItems('trichiasis', trichiasis[0], Kiwiprints.nextItems['trichiasis'])
+
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from post_operative_followup
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: post_operative_followup }
+  .then (post_operative_followup)->
+    Kiwiprints.nextItems['post_operative_followup'] = 0
+    processItems('post_operative_followup', post_operative_followup[0], Kiwiprints.nextItems['post_operative_followup'])
+
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from post_operative_followup_1day
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: post_operative_followup_1day }
+  .then (post_operative_followup_1day)->
+    Kiwiprints.nextItems['post_operative_followup_1day'] = 0
+    processItems('post_operative_followup_1day', post_operative_followup_1day[0], Kiwiprints.nextItems['post_operative_followup_1day'])
+
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from post_operative_followup_3_6_months
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: post_operative_followup_3_6_months }
+  .then (post_operative_followup_3_6_months)->
+    Kiwiprints.nextItems['post_operative_followup_3_6_months'] = 0
+    processItems('post_operative_followup_3_6_months', post_operative_followup_3_6_months[0], Kiwiprints.nextItems['post_operative_followup_3_6_months'])
+
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from post_operative_followup_7_14_days
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: post_operative_followup_7_14_days }
+  .then (post_operative_followup_7_14_days)->
+    Kiwiprints.nextItems['post_operative_followup_7_14_days'] = 0
+    processItems('post_operative_followup_7_14_days', post_operative_followup_7_14_days[0], Kiwiprints.nextItems['post_operative_followup_7_14_days'])
+
+  sequelize.query 'SELECT _id, _rev, latitude,longitude
+    from post_operative_epilation
+    ' + whereYear + '
+    ORDER BY lastmodifiedat DESC;', { model: post_operative_epilation }
+  .then (post_operative_epilation)->
+    Kiwiprints.nextItems['post_operative_epilation'] = 0
+    processItems('post_operative_epilation', post_operative_epilation[0], Kiwiprints.nextItems['post_operative_epilation'])
 
   res.render 'gps_cache',
     title: 'Kiwiprints'
-    subtitle: 'GPS cache'
+    subtitle: 'Populating the GPS cache is in progress'
 
 say = (tableName, record, records, nextItem, next) ->
   console.log("say was called for : " + tableName + " : " + JSON.stringify(record))
@@ -115,9 +165,9 @@ process = (tableName, record, records, nextItem, next) ->
         gpsService = gpsCacheRecord.gpsservice
         if gpsCacheRecord.gpserror
           gpserror = encodeURIComponent(gpsCacheRecord.gpserror)
-          putUrl = 'http://admin:password@127.0.0.1:5984/coconut-moz-2015/_design/default/_update/gpsCity-query/' + _id + '?gpsService=' + gpsService + '&gpsError=' + gpserror
+          putUrl = 'http://' + credentials.couchUsername + ':' + credentials.couchPassword + '@' + credentials.couchUrl + '/' + credentials.couchDatabase + '/_design/default/_update/gpsCity-query/' + _id + '?gpsService=' + gpsService + '&gpsError=' + gpserror
         else
-          putUrl = 'http://admin:password@127.0.0.1:5984/coconut-moz-2015/_design/default/_update/gpsCity-query/' + _id + '?gps_name=' + display_name + '&gpsService=' + gpsService + '&gps_city=' + gps_city + '&gps_country=' + gps_country
+          putUrl = 'http://' + credentials.couchUsername + ':' + credentials.couchPassword + '@' + credentials.couchUrl + '/' + credentials.couchDatabase + '/_design/default/_update/gpsCity-query/' + _id + '?gps_name=' + display_name + '&gpsService=' + gpsService + '&gps_city=' + gps_city + '&gps_country=' + gps_country
           console.log("putUrl for cached record:" + putUrl)
         rest.put(putUrl).on('complete', (result)->
           console.log("putUrl: " + putUrl)
@@ -167,9 +217,9 @@ process = (tableName, record, records, nextItem, next) ->
           gpsservice = 'open.mapquestapi.com'
           if result.error
             gpserror = result.error
-            putUrl = 'http://admin:password@127.0.0.1:5984/coconut-moz-2015/_design/default/_update/gpsCity-query/' + _id + '?gpsError=' + encodeURIComponent(gpserror) + '&gpsService=' + encodeURIComponent(gpsservice)
+            putUrl = 'http://' + credentials.couchUsername + ':' + credentials.couchPassword + '@' + credentials.couchUrl + '/' + credentials.couchDatabase + '/_design/default/_update/gpsCity-query/' + _id + '?gpsError=' + encodeURIComponent(gpserror) + '&gpsService=' + encodeURIComponent(gpsservice)
           else
-            putUrl = 'http://admin:password@127.0.0.1:5984/coconut-moz-2015/_design/default/_update/gpsCity-query/' + _id + '?gps_name=' + encodeURIComponent(display_name) + '&gpsService=' + encodeURIComponent(gpsservice) + '&gps_city=' + encodeURIComponent(gps_city) + '&gps_country=' + encodeURIComponent(gps_country)
+            putUrl = 'http://' + credentials.couchUsername + ':' + credentials.couchPassword + '@' + credentials.couchUrl + '/' + credentials.couchDatabase + '/_design/default/_update/gpsCity-query/' + _id + '?gps_name=' + encodeURIComponent(display_name) + '&gpsService=' + encodeURIComponent(gpsservice) + '&gps_city=' + encodeURIComponent(gps_city) + '&gps_country=' + encodeURIComponent(gps_country)
           console.log("before put - latitude: " + latitude + " longitude" + longitude + " putUrl:" + putUrl)
           gps_cache.create
             latitude: result.latitude,

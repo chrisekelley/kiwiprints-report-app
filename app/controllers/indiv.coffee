@@ -22,7 +22,7 @@ router.get '/indiv', (req, res, next) ->
 
   sequelize.query 'SELECT _id, gender,dob,registrationlocation,previouslyregisterrednowoffline, question, collection,
 createdat, lastmodifiedat,complete, currentdistrict, savedby, clientId, version_code, serviceUuid, createdByOfflineUser,
-latitude, longitude, gps_timestamp, gpsCity, deviceUuid
+latitude, longitude, gps_timestamp, gps_name, gps_city, gps_country, deviceUuid
     from indiv_reg
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: indiv_reg }

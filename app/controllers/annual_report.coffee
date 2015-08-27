@@ -17,8 +17,17 @@ annualReportData = {}
 
 assignDistrict = (reportData, record, type)->
   district = record.currentdistrict
+  gps_name = record.gps_name
   if district == null
-    district = "noDistrictEntered"
+    if gps_name == null
+      district = "noDistrictEntered"
+    else
+      console.log("gps_name: " + gps_name)
+      district = gps_name
+      if districts.indexOf(gps_name) < 0
+        console.log("Adding gps_name to districts ")
+        districts.push(gps_name)
+
   districtData = reportData["#{district}Data"]
   if typeof districtData == 'undefined'
     reportData["#{district}Data"] = {}
@@ -98,35 +107,35 @@ computeReportData = (property)->
 
 
 router.get '/annualReport', (req, res, next) ->
-  whereYear = '    AND date_part(\'year\', t.createdat) = date_part(\'year\', CURRENT_TIMESTAMP)';
+  whereYearAndDisabled = '    AND date_part(\'year\', t.createdat) = date_part(\'year\', CURRENT_TIMESTAMP) AND t.disabled IS NOT TRUE ';
 
-  sequelize.query 'SELECT COUNT(refusedsurgeryl) AS countProperty , t.currentDistrict AS currentDistrict, i.gender AS gender
+  sequelize.query 'SELECT COUNT(refusedsurgeryl) AS countProperty , t.currentDistrict AS currentDistrict, i.gender AS gender, t.gps_name
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND refusedsurgeryl = \'true\'
-    ' + whereYear + '
-    GROUP BY i.gender, t.currentDistrict;'
+    ' + whereYearAndDisabled + '
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;'
   .spread (results, metadata)->
     annualReportData.refusedsurgeryl = results
     assignDistrict annualReportData, record, 'refusedsurgeryl' for record in results
 
   .then ()->
-    sequelize.query 'SELECT COUNT(refusedsurgeryr) AS countProperty , t.currentDistrict AS currentDistrict, i.gender AS gender
+    sequelize.query 'SELECT COUNT(refusedsurgeryr) AS countProperty , t.currentDistrict AS currentDistrict, i.gender AS gender, t.gps_name
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND refusedsurgeryr = \'true\'
-  ' + whereYear + '
-    GROUP BY i.gender, t.currentDistrict;'
+  ' + whereYearAndDisabled + '
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;'
   .spread (results, metadata)->
     annualReportData.refusedsurgeryr = results
     assignDistrict annualReportData, record, 'refusedsurgeryr' for record in results
 
   .then ()->
-    sequelize.query 'SELECT COUNT(t.*) AS countProperty, t.currentDistrict, i.gender
+    sequelize.query 'SELECT COUNT(t.*) AS countProperty, t.currentDistrict, i.gender, t.gps_name
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
-    ' + whereYear + '
-    GROUP BY i.gender, t.currentDistrict;'
+    ' + whereYearAndDisabled + '
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;'
   .spread (results, metadata)->
     annualReportData.operations = results
     assignDistrict annualReportData, record, 'operations' for record in results
@@ -134,12 +143,12 @@ router.get '/annualReport', (req, res, next) ->
   .then ()->
     sequelize.query 'SELECT SUM(CASE WHEN typeofoperationl IS NOT NULL THEN 1 ELSE 0 END) +
     SUM(CASE WHEN typeofoperationr IS NOT NULL THEN 1 ELSE 0 END) AS countProperty,
-    t.currentDistrict, i.gender
+    t.currentDistrict, i.gender, t.gps_name
     FROM indiv_reg i, trichiasis t
     WHERE i._id = t.clientId
     AND (typeofoperationl != \'\' OR typeofoperationr != \'\')
-    ' + whereYear + '
-    GROUP BY i.gender, t.currentDistrict;'
+    ' + whereYearAndDisabled + '
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;'
   .spread (results, metadata)->
     annualReportData.eyelidsOperated = results
     assignDistrict annualReportData, record, 'eyelidsOperated' for record in results
@@ -147,12 +156,12 @@ router.get '/annualReport', (req, res, next) ->
   .then ()->
     sequelize.query 'SELECT
     COUNT(i.*)AS countProperty,
-    t.currentDistrict, i.gender
+    t.currentDistrict, i.gender, t.gps_name
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (providedepilationconsultationl != \'\' OR providedepilationconsultationr != \'\')
-    ' + whereYear + '
-    GROUP BY i.gender, t.currentDistrict;'
+    ' + whereYearAndDisabled + '
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;'
   .spread (results, metadata)->
     annualReportData.peopleEpilated = results
     assignDistrict annualReportData, record, 'peopleEpilated' for record in results
@@ -161,12 +170,12 @@ router.get '/annualReport', (req, res, next) ->
     sequelize.query 'SELECT
     SUM(CASE WHEN providedepilationconsultationl IS NOT NULL THEN 1 ELSE 0 END) +
     SUM(CASE WHEN providedepilationconsultationr IS NOT NULL THEN 1 ELSE 0 END) AS countProperty,
-    t.currentDistrict, i.gender
+    t.currentDistrict, i.gender, t.gps_name
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (providedepilationconsultationl != \'\' OR providedepilationconsultationr != \'\')
-    ' + whereYear + '
-    GROUP BY i.gender, t.currentDistrict;'
+    ' + whereYearAndDisabled + '
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;'
   .spread (results, metadata)->
     annualReportData.eyelidsEpilated = results
     assignDistrict annualReportData, record, 'eyelidsEpilated' for record in results
@@ -180,7 +189,7 @@ router.get '/annualReport', (req, res, next) ->
     SUM(CASE WHEN marginfragmantseveredr IS NOT NULL THEN 1 ELSE 0 END) +
     SUM(CASE WHEN globepuncturer IS NOT NULL THEN 1 ELSE 0 END) +
     SUM(CASE WHEN complicationsreferralr IS NOT NULL THEN 1 ELSE 0 END) AS countProperty,
-    t.currentDistrict, i.gender
+    t.currentDistrict, i.gender, t.gps_name
     FROM trichiasis t, indiv_reg i
     WHERE t.clientid = i._id
     AND (
@@ -193,8 +202,8 @@ router.get '/annualReport', (req, res, next) ->
     OR globepuncturer != ''
     OR complicationsreferralr != ''
     )
-    " + whereYear + "
-    GROUP BY i.gender, t.currentDistrict;"
+    " + whereYearAndDisabled + "
+    GROUP BY i.gender, t.currentDistrict, t.gps_name;"
   .spread (results, metadata)->
     annualReportData.failedSurgeries = results
     assignDistrict annualReportData, record, 'failedSurgeries' for record in results

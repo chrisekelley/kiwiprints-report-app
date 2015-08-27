@@ -51,6 +51,8 @@ This repository sets up the database:
     forever start ./source/kiwiprints-report-app/app.js
     forever list
     forever stop 0
+    forever logs -f 1
+    forever restart source/kiwiprints-report-app/app.js
 
 # Report SQL
 

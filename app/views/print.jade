@@ -1,0 +1,16 @@
+mixin row(val)
+  tr
+    td= val.template
+    td= val.finger
+    td= val._id
+    td= val.serviceUuid
+    td= val.clientId
+    td= val.gender
+    td= val.dob
+    td= val.district
+    td= val.SimprintsThreshold
+    td= val.SimprintsStatusCode
+    td= val.SimprintsUID
+    td= val.SimprintsError
++row(fingerprintRecord)
+

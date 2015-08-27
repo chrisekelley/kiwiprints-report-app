@@ -19,16 +19,16 @@ router.get '/trichiasis', (req, res, next) ->
   gpsCitiesString = []
   createGPScity = (record) ->
 #    console.log("record: " + JSON.stringify(record))
-    if record.latitude != null
-      gpsCity =
-        id: record._id,
-        latitude: record.latitude,
-        longitude: record.longitude
-  #    console.log("gpsCity: " + JSON.stringify(gpsCity))
-      gpsCities.push(gpsCity);
-      console.log("gpsCities size: " + gpsCities.length)
-      gpsCityString = JSON.stringify(gpsCity);
-      gpsCitiesString.push(gpsCityString);
+#    if record.latitude != null
+#      gpsCity =
+#        id: record._id,
+#        latitude: record.latitude,
+#        longitude: record.longitude
+#  #    console.log("gpsCity: " + JSON.stringify(gpsCity))
+#      gpsCities.push(gpsCity);
+#      console.log("gpsCities size: " + gpsCities.length)
+#      gpsCityString = JSON.stringify(gpsCity);
+#      gpsCitiesString.push(gpsCityString);
 #    else
 #      console.log("gpsCity: " + JSON.stringify(gpsCity))
 
@@ -44,9 +44,9 @@ router.get '/trichiasis', (req, res, next) ->
     from trichiasis
     ' + whereYear + '
     ORDER BY lastmodifiedat DESC;', { model: trichiasis }
-  .then (trichiasis)->
-    createGPScity record for record in trichiasis[0]
-    return trichiasis
+#  .then (trichiasis)->
+#    createGPScity record for record in trichiasis[0]
+#    return trichiasis
   .then (trichiasis)->
 #    gpsArray = []
 #    gpsArray.push gpsCitiesString

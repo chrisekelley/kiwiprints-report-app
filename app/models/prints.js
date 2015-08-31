@@ -57,6 +57,14 @@ module.exports = function(sequelize, DataTypes) {
     SimprintsError: {
       type: DataTypes.TEXT,
       allowNull: true,
+    },
+    kiwicreatedat: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    kiwilastmodifiedat: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   },{
   });

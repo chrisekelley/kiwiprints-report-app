@@ -34,6 +34,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    currentDistrict: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    gps_name: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
     SimprintsThreshold: {
       type: DataTypes.INTEGER,
       allowNull: true,

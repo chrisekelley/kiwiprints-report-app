@@ -19,5 +19,18 @@ block content
         th= 'SimprintsError'
 
     tbody
-
+      each val, index in records
+        tr
+          td= 'in db'
+          td= val.finger
+          td= val._id
+          td= val.serviceUuid
+          td= val.clientId
+          td= val.gender
+          td= val.dob
+          td= val.district
+          td= val.SimprintsThreshold
+          td= val.SimprintsStatusCode
+          td= val.SimprintsUID
+          td= val.SimprintsError
 

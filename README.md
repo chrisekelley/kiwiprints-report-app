@@ -34,7 +34,7 @@ Uses bootstrap for general page layout and [datatables](https://datatables.net) 
 
 ## Configure database
 
-Adjust settings in config/config.coffee
+Adjust settings for the correct IP address and db credentials in config/config.coffee
 
 # Docker instance for testing
 
@@ -53,6 +53,10 @@ This repository sets up the database:
     forever stop 0
     forever logs -f 1
     forever restart source/kiwiprints-report-app/app.js
+
+# Accessing the app
+
+http://localhost:3000/
 
 # Report SQL
 
